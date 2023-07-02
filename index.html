@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
     <script type="text/javascript">
@@ -11,18 +10,6 @@
         var quant = [56]; // quantidade de imagens na pasta de animação
 
         document.addEventListener("DOMContentLoaded", function() {
-            // Carrega todas as imagens primeiro
-            const hiddenImg = document.querySelector('#hiddenImg');
-            var imgs = "";
-
-            for (q = 1; q <= quant.length; q++) {
-                for (i = 1; i <= quant[q - 1]; i++) {
-                    imgs += "<img src='./video" + q + "/im (" + i + ").jpeg' >";
-                }
-            }
-
-            hiddenImg.innerHTML = imgs;
-
             const targets = [document.querySelector('#target1'), document.querySelector('#target2'), document.querySelector('#target3'), document.querySelector('#target4')];
             const vids = [document.querySelector('#vid1'), document.querySelector('#vid2'), document.querySelector('#vid3'), document.querySelector('#vid4')];
 
@@ -35,7 +22,7 @@
                     interval = setInterval(function() {
                         count += 1;
                         if (count > maxCount) count = 1;
-                        vids[trgt - 1].setAttribute("src", "#video" + trgt + "_" + count);
+                        vids[trgt - 1].setAttribute("src", "./video" + trgt + "/im (" + count + ").jpeg");
                     }, 200); // Modifique esse valor para ajustar a velocidade da sequência de imagens
                 });
 
@@ -48,7 +35,6 @@
 </head>
 <body>
     <a-scene mindar-image="filterMinCF:0.0; filterBeta: 10000; imageTargetSrc: targets.mind"; color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
-        <a-assets id="hiddenImg"></a-assets>
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
         <a-entity id="target1" mindar-image-target="targetIndex: 0">
