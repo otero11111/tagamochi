@@ -1,4 +1,3 @@
-User
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,10 +15,8 @@ User
             const hiddenImg = document.querySelector('#hiddenImg');
             var imgs = "";
 
-            for (q = 1; q <= quant.length; q++) {
-                for (i = 1; i <= quant[q - 1]; i++) {
-                    imgs += "<img src='./video" + q + "/im (" + i + ").jpeg' >";
-                }
+            for (q = 1; q <= quant[0]; q++) {
+                imgs += "<img src='./video" + q + "/im (" + q + ").jpeg' >";
             }
 
             hiddenImg.innerHTML = imgs;
@@ -31,12 +28,12 @@ User
             for (i = 0; i < targets.length; i++) {
                 targets[i].addEventListener("targetFound", event => {
                     const trgt = parseInt(event.target.id.charAt(6));
-                    const maxCount = quant[trgt - 1];
+                    const maxCount = quant[0];
 
                     interval = setInterval(function() {
                         count += 1;
                         if (count > maxCount) count = 1;
-                        vids[trgt - 1].setAttribute("src", "#video" + trgt + "_" + count);
+                        vids[trgt - 1].setAttribute("src", "./video" + trgt + "/im (" + count + ").jpeg");
                     }, 200); // Modifique esse valor para ajustar a velocidade da sequência de imagens
                 });
 
