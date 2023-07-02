@@ -15,8 +15,8 @@
 
             // Detectar quando o marcador é encontrado
             for (i = 0; i < targets.length; i++) {
-                targets[i].addEventListener("targetFound", event => {
-                    const trgt = parseInt(event.target.id.charAt(6));
+                targets[i].addEventListener("markerFound", function() {
+                    const trgt = parseInt(this.id.slice(-1));
                     const maxCount = quant[trgt - 1];
 
                     interval = setInterval(function() {
@@ -26,7 +26,7 @@
                     }, 200); // Modifique esse valor para ajustar a velocidade da sequência de imagens
                 });
 
-                targets[i].addEventListener("targetLost", event => {
+                targets[i].addEventListener("markerLost", function() {
                     clearInterval(interval);
                 });
             }
@@ -37,21 +37,23 @@
     <a-scene mindar-image="filterMinCF:0.0; filterBeta: 10000; imageTargetSrc: targets.mind"; color-space="sRGB" renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
         <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-        <a-entity id="target1" mindar-image-target="targetIndex: 0">
+        <a-marker id="target1" preset="hiro">
             <a-image id="vid1" src="./video1/im (1).jpeg" opacity="1.0" position="0 0 0" height="0.5" width="1.0" rotation="0 0 0"></a-image>
-        </a-entity>
+        </a-marker>
 
-        <a-entity id="target2" mindar-image-target="targetIndex: 1">
+        <a-marker id="target2" preset="kanji">
             <a-image id="vid2" src="./video2/im (1).jpeg" opacity="1.0" position="0 0 0" height="0.5" width="1.0" rotation="0 0 0"></a-image>
-        </a-entity>
+        </a-marker>
 
-        <a-entity id="target3" mindar-image-target="targetIndex: 2">
+        <a-marker id="target3" preset="custom" type="pattern" url="./pattern-marker.patt">
             <a-image id="vid3" src="./video3/im (1).jpeg" opacity="1.0" position="0 0 0" height="0.5" width="1.0" rotation="0 0 0"></a-image>
-        </a-entity>
+        </a-marker>
 
-        <a-entity id="target4" mindar-image-target="targetIndex: 3">
+        <a-marker id="target4" preset="custom" type="barcode" value="123456789">
             <a-image id="vid4" src="./video4/im (1).jpeg" opacity="1.0" position="0 0 0" height="0.5" width="1.0" rotation="0 0 0"></a-image>
-        </a-entity>
+        </a-marker>
+
+        <a-entity camera></a-entity>
     </a-scene>
 </body>
 </html>
