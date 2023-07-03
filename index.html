@@ -15,7 +15,7 @@
             const hiddenImg = document.querySelector('#hiddenImg');
             var imgs = "";
 
-            for (q = 1; q <= quant[0]; q++) {
+            for (var q = 1; q <= quant[0]; q++) {
                 imgs += "<img src='./video1/im (" + q + ").jpeg' >";
             }
 
@@ -25,7 +25,7 @@
             const vids = [document.querySelector('#vid1'), document.querySelector('#vid2'), document.querySelector('#vid3'), document.querySelector('#vid4')];
 
             // Detectar quando o marcador é encontrado
-            for (i = 0; i < targets.length; i++) {
+            for (var i = 0; i < targets.length; i++) {
                 (function(i) {
                     targets[i].addEventListener("targetFound", function(event) {
                         const trgt = parseInt(event.target.id.charAt(6));
