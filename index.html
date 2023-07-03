@@ -37,7 +37,7 @@
                         count += 1;
                         if (count > maxCount) count = 1;
                         vids[trgt - 1].setAttribute("src", "./video" + trgt + "/im (" + count + ").jpeg");
-                    }, 200); // Modifique esse valor para ajustar a velocidade da sequência de imagens
+                    }, 100); // Modifique esse valor para ajustar a velocidade da sequência de imagens
                 });
 
                 targets[i].addEventListener("targetLost", event => {
