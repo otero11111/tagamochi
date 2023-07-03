@@ -25,18 +25,15 @@
             const vids = [document.querySelector('#vid1'), document.querySelector('#vid2'), document.querySelector('#vid3'), document.querySelector('#vid4')];
 
             // Detectar quando o marcador é encontrado
-                            for (i=1;i<=6;i++) {
-
-                                targets[i-1].addEventListener("targetFound", event => {
-
-                                    const trgt = parseInt(event.target.id.charAt(6));
-
-                                    maxCount = quant[trgt-1]
+            for (i = 0; i < targets.length; i++) {
+                targets[i].addEventListener("targetFound", event => {
+                    const trgt = parseInt(event.target.id.charAt(6));
+                    const maxCount = quant[0];
 
                     interval = setInterval(function() {
                         count += 1;
                         if (count > maxCount) count = 1;
-                        vids[trgt - 1].setAttribute("src", "./video" + trgt + "/im (" + count + ").jpeg");
+                        vids[i].setAttribute("src", "./video" + (i + 1) + "/im (" + count + ").jpeg");
                     }, 100); // Modifique esse valor para ajustar a velocidade da sequência de imagens
                 });
 
