@@ -6,8 +6,8 @@
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
     <script type="text/javascript">
-        var counts = [1, 1, 1, 1];
-        var intervals = [];
+        var count = 1;
+        var interval;
         var quant = [56]; // quantidade de imagens na pasta de animação
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -15,8 +15,8 @@
             const hiddenImg = document.querySelector('#hiddenImg');
             var imgs = "";
 
-            for (var q = 1; q <= quant[0]; q++) {
-                imgs += "<img src='./video1/im (" + q + ").jpeg' >";
+            for (q = 1; q <= quant[0]; q++) {
+                imgs += "<img src='./video" + q + "/im (" + q + ").jpeg' >";
             }
 
             hiddenImg.innerHTML = imgs;
@@ -25,23 +25,24 @@
             const vids = [document.querySelector('#vid1'), document.querySelector('#vid2'), document.querySelector('#vid3'), document.querySelector('#vid4')];
 
             // Detectar quando o marcador é encontrado
-            for (var i = 0; i < targets.length; i++) {
-                (function(i) {
-                    targets[i].addEventListener("targetFound", function(event) {
-                        const trgt = parseInt(event.target.id.charAt(6));
-                        const maxCount = quant[0];
+                            for (i=1;i<=6;i++) {
 
-                        intervals[i] = setInterval(function() {
-                            counts[i] += 1;
-                            if (counts[i] > maxCount) counts[i] = 1;
-                            vids[i].setAttribute("src", "./video" + (i + 1) + "/im (" + counts[i] + ").jpeg");
-                        }, 100); // Modifique esse valor para ajustar a velocidade da sequência de imagens
-                    });
+                                targets[i-1].addEventListener("targetFound", event => {
 
-                    targets[i].addEventListener("targetLost", function(event) {
-                        clearInterval(intervals[i]);
-                    });
-                })(i);
+                                    const trgt = parseInt(event.target.id.charAt(6));
+
+                                    maxCount = quant[trgt-1]
+
+                    interval = setInterval(function() {
+                        count += 1;
+                        if (count > maxCount) count = 1;
+                        vids[trgt - 1].setAttribute("src", "./video" + trgt + "/im (" + count + ").jpeg");
+                    }, 100); // Modifique esse valor para ajustar a velocidade da sequência de imagens
+                });
+
+                targets[i].addEventListener("targetLost", event => {
+                    clearInterval(interval);
+                });
             }
         });
     </script>
