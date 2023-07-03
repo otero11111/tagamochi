@@ -16,7 +16,7 @@
             var imgs = "";
 
             for (q = 1; q <= quant[0]; q++) {
-                imgs += "<img src='./video" + q + "/im (" + q + ").jpeg' >";
+                imgs += "<img src='./video1/im (" + q + ").jpeg' >";
             }
 
             hiddenImg.innerHTML = imgs;
@@ -26,20 +26,22 @@
 
             // Detectar quando o marcador é encontrado
             for (i = 0; i < targets.length; i++) {
-                targets[i].addEventListener("targetFound", event => {
-                    const trgt = parseInt(event.target.id.charAt(6));
-                    const maxCount = quant[0];
+                (function(i) {
+                    targets[i].addEventListener("targetFound", function(event) {
+                        const trgt = parseInt(event.target.id.charAt(6));
+                        const maxCount = quant[0];
 
-                    intervals[i] = setInterval(function() {
-                        counts[i] += 1;
-                        if (counts[i] > maxCount) counts[i] = 1;
-                        vids[i].setAttribute("src", "./video" + (i + 1) + "/im (" + counts[i] + ").jpeg");
-                    }, 100); // Modifique esse valor para ajustar a velocidade da sequência de imagens
-                });
+                        intervals[i] = setInterval(function() {
+                            counts[i] += 1;
+                            if (counts[i] > maxCount) counts[i] = 1;
+                            vids[i].setAttribute("src", "./video" + (i + 1) + "/im (" + counts[i] + ").jpeg");
+                        }, 100); // Modifique esse valor para ajustar a velocidade da sequência de imagens
+                    });
 
-                targets[i].addEventListener("targetLost", event => {
-                    clearInterval(intervals[i]);
-                });
+                    targets[i].addEventListener("targetLost", function(event) {
+                        clearInterval(intervals[i]);
+                    });
+                })(i);
             }
         });
     </script>
