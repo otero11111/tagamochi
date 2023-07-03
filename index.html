@@ -6,8 +6,8 @@
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
     <script type="text/javascript">
-        var count = 1;
-        var interval;
+        var counts = [1, 1, 1, 1];
+        var intervals = [];
         var quant = [56]; // quantidade de imagens na pasta de animação
 
         document.addEventListener("DOMContentLoaded", function() {
@@ -30,15 +30,15 @@
                     const trgt = parseInt(event.target.id.charAt(6));
                     const maxCount = quant[0];
 
-                    interval = setInterval(function() {
-                        count += 1;
-                        if (count > maxCount) count = 1;
-                        vids[i].setAttribute("src", "./video" + (i + 1) + "/im (" + count + ").jpeg");
+                    intervals[i] = setInterval(function() {
+                        counts[i] += 1;
+                        if (counts[i] > maxCount) counts[i] = 1;
+                        vids[i].setAttribute("src", "./video" + (i + 1) + "/im (" + counts[i] + ").jpeg");
                     }, 100); // Modifique esse valor para ajustar a velocidade da sequência de imagens
                 });
 
                 targets[i].addEventListener("targetLost", event => {
-                    clearInterval(interval);
+                    clearInterval(intervals[i]);
                 });
             }
         });
