@@ -25,10 +25,13 @@
             const vids = [document.querySelector('#vid1'), document.querySelector('#vid2'), document.querySelector('#vid3'), document.querySelector('#vid4')];
 
             // Detectar quando o marcador é encontrado
-            for (i = 0; i < targets.length; i++) {
-                targets[i].addEventListener("targetFound", event => {
-                    const trgt = parseInt(event.target.id.charAt(6));
-                    const maxCount = quant[0];
+                            for (i=1;i<=6;i++) {
+
+                                targets[i-1].addEventListener("targetFound", event => {
+
+                                    const trgt = parseInt(event.target.id.charAt(6));
+
+                                    maxCount = quant[trgt-1]
 
                     interval = setInterval(function() {
                         count += 1;
